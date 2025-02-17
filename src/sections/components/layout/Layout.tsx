@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react'
 import HeaderDesktop from './Header'
+import Sidebar from './Sidebar'
 
 interface Props {
     children: ReactNode
@@ -7,12 +8,11 @@ interface Props {
 const Layout: FC<Props> = ({ children }: Props) => {
     return (
         <div className="flex flex-col">
-            <div>
-                <HeaderDesktop />
-            </div>
+            <HeaderDesktop />
+
             <div className="flex">
-                <div>Sidebar</div>
-                <div className="bg-green-500">{children}</div>
+                <Sidebar />
+                <div className="flex-grow bg-grey-300">{children}</div>
             </div>
         </div>
     )

@@ -24,7 +24,7 @@ export default {
                 success: '#49A569',
                 text: '#191919',
                 black: '#000000',
-                white: 'red',
+                white: '#FFFFFF',
                 golden: '#C5A365',
             },
         },
