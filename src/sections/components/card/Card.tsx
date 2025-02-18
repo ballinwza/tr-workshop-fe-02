@@ -33,9 +33,7 @@ const Card: FC<Props> = ({
                 `${isShortType ? 'py-[21px]' : 'pt-10 pb-8'}`
             }
         >
-            <div className="absolute top-[14px] right-[15px] flex gap-[15px]">
-                {extraIcon}
-            </div>
+            <div className="absolute top-[14px] right-[15px]">{extraIcon}</div>
 
             <div className="flex gap-[10px] items-center mb-[15px]">
                 <div
