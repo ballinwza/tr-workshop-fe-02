@@ -8,25 +8,53 @@ interface Props {
     menuList: string[]
     dropdownValue: string
     setDropdownValue: (value: string) => void
+    type?: 'plain' | 'light'
 }
 
 const Dropdown: FC<Props> = ({
     menuList,
     dropdownValue,
     setDropdownValue,
+    type = 'plain',
 }: Props) => {
+    const isPlain = type === 'plain'
+
     return (
-        <div className="px-3.5 min-w-[320px] relative z-10">
+        <div
+            className={
+                `relative ` +
+                `${
+                    isPlain
+                        ? 'min-w-[320px] relative z-10'
+                        : 'bg-white border border-success rounded-lg'
+                }`
+            }
+        >
             <Menu>
-                <div className="text-end">
-                    <MenuButton>
+                <div
+                    className={
+                        isPlain ? `flex  w-full py-2.5 px-3.5 justify-end` : ''
+                    }
+                >
+                    <MenuButton
+                        className={
+                            !isPlain
+                                ? `flex  w-full py-2.5 px-3.5 justify-center`
+                                : ''
+                        }
+                    >
                         <div className="flex justify-end items-center gap-[5px]">
-                            <span className="text-text font-semibold text-sm">
+                            <span
+                                className={
+                                    `font-semibold text-sm ` +
+                                    `${isPlain ? 'text-text' : 'text-success'}`
+                                }
+                            >
                                 {capitalize(dropdownValue)}
                             </span>
                             <div>
                                 <Image
-                                    src="/icons/arrow-down-icon.svg"
+                                    src={`${isPlain ? '/icons/arrow-down-icon.svg' : '/icons/arrow-down-success-icon.svg'}`}
                                     alt="arrow down icon"
                                     width={10}
                                     height={5}
@@ -35,7 +63,7 @@ const Dropdown: FC<Props> = ({
                         </div>
                     </MenuButton>
                     <MenuItems>
-                        <div className="rounded-lg w-full overflow-hidden absolute top-[45px] right-0">
+                        <div className="shadow-lg border bg-white border-[#DADADA] rounded-lg w-full overflow-hidden absolute top-[50px] right-0">
                             {menuList.map((menu, index) => {
                                 return (
                                     <MenuItem key={index}>

@@ -16,7 +16,6 @@ const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
     useEffect(() => {
         if (placardId) {
             fetchPlacard(placardId)
-            console.log('userId : ', placardId)
         }
     }, [])
 

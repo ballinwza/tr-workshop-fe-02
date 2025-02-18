@@ -7,6 +7,6 @@ export default function HomePage() {
     const pathname = useRouter()
 
     useEffect(() => {
-        pathname.push('/blogs')
+        pathname.push('/blog')
     }, [])
 }
