@@ -1,7 +1,8 @@
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { capitalize } from 'radash'
 import Image from 'next/image'
+import { DropdownItem } from './Dropdown.style'
 
 interface Props {
     menuList: string[]
@@ -15,12 +16,14 @@ const Dropdown: FC<Props> = ({
     setDropdownValue,
 }: Props) => {
     return (
-        <div className="py-2.5 px-3.5 min-w-[320px] relative z-10">
-            <Menu as={Fragment}>
+        <div className="px-3.5 min-w-[320px] relative z-10">
+            <Menu>
                 <div className="text-end">
                     <MenuButton>
                         <div className="flex justify-end items-center gap-[5px]">
-                            <span>{capitalize(dropdownValue)}</span>
+                            <span className="text-text font-semibold text-sm">
+                                {capitalize(dropdownValue)}
+                            </span>
                             <div>
                                 <Image
                                     src="/icons/arrow-down-icon.svg"
@@ -32,21 +35,34 @@ const Dropdown: FC<Props> = ({
                         </div>
                     </MenuButton>
                     <MenuItems>
-                        <div className="bg-white rounded-lg py-1 w-full overflow-hidden absolute top-[45px] right-0">
+                        <div className="rounded-lg w-full overflow-hidden absolute top-[45px] right-0">
                             {menuList.map((menu, index) => {
                                 return (
                                     <MenuItem key={index}>
-                                        <div
+                                        <DropdownItem
+                                            $active={dropdownValue === menu}
                                             onClick={(e) =>
                                                 setDropdownValue(
                                                     e.currentTarget.textContent?.toLowerCase() ??
                                                         dropdownValue,
                                                 )
                                             }
-                                            className="data-[focus]:bg-green-100 text-start px-3.5 py-2.5 cursor-pointer"
+                                            className="data-[focus]:bg-green-100 text-start px-3.5 py-2.5 cursor-pointer flex items-center justify-between"
                                         >
-                                            {capitalize(menu)}
-                                        </div>
+                                            <div className="text-[#1C1C1C] font-medium text-base">
+                                                {capitalize(menu)}
+                                            </div>
+                                            {dropdownValue === menu && (
+                                                <div>
+                                                    <Image
+                                                        alt="tick icon"
+                                                        src="/icons/tick-icon.svg"
+                                                        width={13}
+                                                        height={9}
+                                                    />
+                                                </div>
+                                            )}
+                                        </DropdownItem>
                                     </MenuItem>
                                 )
                             })}
