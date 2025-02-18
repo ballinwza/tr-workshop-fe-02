@@ -2,7 +2,7 @@
 import { FC, useEffect } from 'react'
 
 interface Props {
-    onClick?: () => void
+    onClick: () => void
 }
 const BackgroundOverlay: FC<Props> = ({ onClick }: Props) => {
     useEffect(() => {
