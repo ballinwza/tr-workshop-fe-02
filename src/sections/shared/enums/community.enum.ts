@@ -7,3 +7,6 @@ export enum CommunityEnum {
     EXERCISE = 'exercise',
     OTHERS = 'others',
 }
+
+export const getCommunityEnumValues = (): string[] =>
+    Object.values(CommunityEnum)
