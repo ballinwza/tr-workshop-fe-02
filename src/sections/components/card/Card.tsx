@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Tag from '../tag/Tag'
 import Image from 'next/image'
+import { capitalize } from 'radash'
 
 interface Props {
     title: string
@@ -9,6 +10,7 @@ interface Props {
     tag: string
     description: string
     commentCount: number
+    type?: 'full' | 'short'
 }
 
 const Card: FC<Props> = ({
@@ -18,9 +20,17 @@ const Card: FC<Props> = ({
     tag,
     commentCount,
     description,
+    type = 'short',
 }: Props) => {
+    const isShortType = type === 'short' ? true : false
+
     return (
-        <div className="relative bg-white overflow-hidden px-5 py-[21px]">
+        <div
+            className={
+                `relative bg-white overflow-hidden px-5 ` +
+                `${isShortType ? 'py-[21px]' : 'pt-10 pb-8'}`
+            }
+        >
             <div className="absolute top-[14px] right-[15px]">
                 <Image
                     src="/icons/star-icon.svg"
@@ -31,7 +41,12 @@ const Card: FC<Props> = ({
             </div>
 
             <div className="flex gap-[10px] items-center mb-[15px]">
-                <div className="aspect-square w-[31px] rounded-full overflow-hidden">
+                <div
+                    className={
+                        `aspect-square rounded-full overflow-hidden ` +
+                        `${isShortType ? 'w-[31px]' : 'w-[48px] '}`
+                    }
+                >
                     <Image
                         className="w-full h-full"
                         src={avatarImageUrl}
@@ -40,19 +55,38 @@ const Card: FC<Props> = ({
                         height={31}
                     />
                 </div>
-                <div className="text-grey-300 font-medium text-sm">{name}</div>
+                <div
+                    className={
+                        `font-medium text-sm ` +
+                        `${isShortType ? 'text-grey-300' : 'text-text'}`
+                    }
+                >
+                    {name}
+                </div>
             </div>
 
-            <div className="mb-[5px]">
-                <Tag>{tag}</Tag>
+            <div className={isShortType ? 'mb-[5px]' : 'mb-4'}>
+                <Tag>{capitalize(tag)}</Tag>
             </div>
 
-            <div className="mb-[10px]">
-                <div className="font-semibold text-base">
+            <div
+                className={
+                    `flex flex-col ` +
+                    `${isShortType ? 'gap-0 mb-[10px]' : 'gap-4 mb-7'}`
+                }
+            >
+                <div
+                    className={
+                        `font-semibold ` +
+                        `${isShortType ? 'text-base' : 'text-[28px] leading-6'}`
+                    }
+                >
                     <strong>{title}</strong>
                 </div>
                 <div className="">
-                    <p className="line-clamp-2 text-xs leading-[14px] text-[#101828]">
+                    <p
+                        className={`${type == 'short' ? 'line-clamp-2' : 'line-clamp-none'} text-xs leading-[14px] text-[#101828]`}
+                    >
                         {description}
                     </p>
                 </div>
