@@ -1,5 +1,12 @@
-import HomeProvider from '@/sections/providers/Home.provider'
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function HomePage() {
-    return <HomeProvider />
+    const pathname = useRouter()
+
+    useEffect(() => {
+        pathname.push('/blogs')
+    }, [])
 }

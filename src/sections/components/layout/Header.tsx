@@ -1,7 +1,14 @@
+'use client'
 import { FC } from 'react'
 import SuccessButton from '../button/Button'
+import { useRouter } from 'next/navigation'
+import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+import Image from 'next/image'
 
 const HeaderDesktop: FC = () => {
+    const { user } = useUserStore((state) => state)
+    const router = useRouter()
+
     return (
         <div
             className={
@@ -11,7 +18,26 @@ const HeaderDesktop: FC = () => {
         >
             <div className="italic font-normal text-xl">a Board</div>
             <div>
-                <SuccessButton>Sign In</SuccessButton>
+                {user ? (
+                    <div className="flex gap-5 items-center">
+                        <div className="font-medium text-white text-base">
+                            {user.fullName}
+                        </div>
+                        <div className="rounded-full overflow-hidden aspect-square w-10">
+                            <Image
+                                src={user.profileImageUrl}
+                                alt="avatar picture"
+                                width={40}
+                                height={40}
+                                className="w-full h-full"
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <SuccessButton onClick={() => router.push('/login')}>
+                        Sign In
+                    </SuccessButton>
+                )}
             </div>
         </div>
     )

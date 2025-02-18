@@ -7,7 +7,7 @@ import Dropdown from '@/sections/components/dropdown/Dropdown'
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { FC, useEffect, useState } from 'react'
 
-const HomeProvider: FC = () => {
+const BlogProvider: FC = () => {
     const { placards, fetchPlacards, clearPlacards } = usePlacardStore(
         (state) => state,
     )
@@ -61,4 +61,4 @@ const HomeProvider: FC = () => {
     )
 }
 
-export default HomeProvider
+export default BlogProvider
