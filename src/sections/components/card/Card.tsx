@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import Tag from '../tag/Tag'
 import Image from 'next/image'
 import { capitalize } from 'radash'
@@ -11,6 +11,7 @@ interface Props {
     description: string
     commentCount: number
     type?: 'full' | 'short'
+    extraIcon?: ReactNode
 }
 
 const Card: FC<Props> = ({
@@ -21,6 +22,7 @@ const Card: FC<Props> = ({
     commentCount,
     description,
     type = 'short',
+    extraIcon,
 }: Props) => {
     const isShortType = type === 'short' ? true : false
 
@@ -31,13 +33,8 @@ const Card: FC<Props> = ({
                 `${isShortType ? 'py-[21px]' : 'pt-10 pb-8'}`
             }
         >
-            <div className="absolute top-[14px] right-[15px]">
-                <Image
-                    src="/icons/star-icon.svg"
-                    alt="star icon"
-                    width={16}
-                    height={16}
-                />
+            <div className="absolute top-[14px] right-[15px] flex gap-[15px]">
+                {extraIcon}
             </div>
 
             <div className="flex gap-[10px] items-center mb-[15px]">
