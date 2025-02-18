@@ -1,4 +1,6 @@
+'use client'
 import { FC } from 'react'
+import MenuList from './MenuList'
 
 const Sidebar: FC = () => {
     return (
@@ -8,8 +10,7 @@ const Sidebar: FC = () => {
                 `md:flex md:flex-col md:w-[280px]`
             }
         >
-            <div>Home</div>
-            <div>Our Blog</div>
+            <MenuList device="desktop" />
         </div>
     )
 }
