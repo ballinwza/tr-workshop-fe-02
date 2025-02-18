@@ -37,7 +37,9 @@ const HomeProvider: FC = () => {
                             setDropdownValue={setCommunity}
                         />
                     </div>
-                    <SuccessButton>Create +</SuccessButton>
+                    <SuccessButton onClick={() => console.log('click')}>
+                        Create +
+                    </SuccessButton>
                 </div>
             </div>
 
