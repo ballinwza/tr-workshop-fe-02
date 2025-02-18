@@ -2,8 +2,8 @@
 import { usePlacardStore } from '@/modules/placard/adapter/inbound/store/placard.store'
 import { FC, useEffect } from 'react'
 import Card from '../components/card/Card'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+
+import BackButton from '../components/button/BackButton'
 
 interface Props {
     placardId: string
@@ -11,7 +11,6 @@ interface Props {
 
 const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
     const { placard, fetchPlacard } = usePlacardStore((state) => state)
-    const router = useRouter()
 
     useEffect(() => {
         if (placardId) {
@@ -22,17 +21,7 @@ const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
     return (
         <div>
             <div className="bg-white">
-                <div
-                    onClick={() => router.back()}
-                    className="flex justify-center items-center aspect-square w-[44px] bg-green-100 rounded-full overflow-hidden cursor-pointer"
-                >
-                    <Image
-                        src="/icons/back-icon.svg"
-                        alt="back icon"
-                        width={14}
-                        height={14}
-                    />
-                </div>
+                <BackButton />
             </div>
             {placard && (
                 <Card
