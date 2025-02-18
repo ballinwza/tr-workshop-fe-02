@@ -1,7 +1,7 @@
 'use client'
 
 import { usePlacardStore } from '@/modules/placard/adapter/inbound/store/placard.store'
-import SuccessButton from '@/sections/components/button/Button'
+import Button from '@/sections/components/button/Button'
 import Card from '@/sections/components/card/Card'
 import Dropdown from '@/sections/components/dropdown/Dropdown'
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
@@ -46,9 +46,9 @@ const BlogProvider: FC = () => {
                                 setDropdownValue={setCommunity}
                             />
                         </div>
-                        <SuccessButton onClick={() => setIsModalActive(true)}>
+                        <Button onClick={() => setIsModalActive(true)}>
                             Create +
-                        </SuccessButton>
+                        </Button>
                     </div>
                 </div>
 

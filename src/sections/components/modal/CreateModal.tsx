@@ -5,7 +5,7 @@ import Modal from './Modal'
 import Dropdown from '../dropdown/Dropdown'
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { Input, Textarea } from '@headlessui/react'
-import SuccessButton from '../button/Button'
+import Button from '../button/Button'
 import Image from 'next/image'
 
 interface Props {
@@ -21,12 +21,9 @@ const CreateModal: FC<Props> = ({ title, isActive, setIsActive }: Props) => {
         <Modal isActive={isActive} setIsActive={setIsActive}>
             <div
                 className={
-                    `flex flex-col gap-[30px] bg-white px-4 py-[30px] rounded-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 ` +
-                    `md:max-w-[685px] md:p-[30px]`
+                    `flex flex-col gap-[30px] bg-white px-4 py-[30px] rounded-xl  ` +
+                    `md:max-w-[685px] md:p-[30px] md:mx-auto`
                 }
-                style={{
-                    width: 'calc(100% - 32px)',
-                }}
             >
                 <div
                     onClick={() => setIsActive(false)}
@@ -63,13 +60,10 @@ const CreateModal: FC<Props> = ({ title, isActive, setIsActive }: Props) => {
                 </div>
 
                 <div className="flex justify-end gap-3">
-                    <SuccessButton
-                        theme="light"
-                        onClick={() => setIsActive(false)}
-                    >
+                    <Button theme="light" onClick={() => setIsActive(false)}>
                         Cancel
-                    </SuccessButton>
-                    <SuccessButton>Post</SuccessButton>
+                    </Button>
+                    <Button>Post</Button>
                 </div>
             </div>
         </Modal>

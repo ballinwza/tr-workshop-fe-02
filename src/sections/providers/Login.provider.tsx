@@ -1,7 +1,7 @@
 'use client'
 import { Input } from '@headlessui/react'
 import { FC } from 'react'
-import SuccessButton from '../components/button/Button'
+import Button from '../components/button/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
@@ -65,9 +65,7 @@ const LoginProvider: FC = () => {
                             />
                         </div>
                         <div>
-                            <SuccessButton onClick={fetchUser}>
-                                Sign In
-                            </SuccessButton>
+                            <Button onClick={fetchUser}>Sign In</Button>
                         </div>
                     </div>
                 </div>

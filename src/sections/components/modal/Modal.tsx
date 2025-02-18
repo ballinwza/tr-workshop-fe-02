@@ -12,7 +12,15 @@ const Modal: FC<Props> = ({ children, isActive, setIsActive }: Props) => {
     if (isActive) {
         return (
             <div>
-                <div className="mx-10 bg-red-500">{children}</div>
+                <div
+                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 `}
+                    style={{
+                        width: 'calc(100% - 32px)',
+                    }}
+                >
+                    {children}
+                </div>
+
                 <BackgroundOverlay onClick={() => setIsActive(false)} />
             </div>
         )

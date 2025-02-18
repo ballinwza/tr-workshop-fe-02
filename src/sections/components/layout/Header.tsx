@@ -1,6 +1,6 @@
 'use client'
 import { FC } from 'react'
-import SuccessButton from '../button/Button'
+import Button from '../button/Button'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
 import Image from 'next/image'
@@ -34,9 +34,9 @@ const HeaderDesktop: FC = () => {
                         </div>
                     </div>
                 ) : (
-                    <SuccessButton onClick={() => router.push('/login')}>
+                    <Button onClick={() => router.push('/login')}>
                         Sign In
-                    </SuccessButton>
+                    </Button>
                 )}
             </div>
         </div>
