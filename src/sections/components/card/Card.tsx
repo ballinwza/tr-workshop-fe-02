@@ -2,6 +2,7 @@ import { FC, ReactNode } from 'react'
 import Tag from '../tag/Tag'
 import Image from 'next/image'
 import { capitalize } from 'radash'
+import Highlighter from 'react-highlight-words'
 
 interface Props {
     title: string
@@ -12,6 +13,7 @@ interface Props {
     commentCount: number
     type?: 'full' | 'short'
     extraIcon?: ReactNode
+    searchWord?: string
 }
 
 const Card: FC<Props> = ({
@@ -23,6 +25,7 @@ const Card: FC<Props> = ({
     description,
     type = 'short',
     extraIcon,
+    searchWord,
 }: Props) => {
     const isShortType = type === 'short' ? true : false
 
@@ -76,9 +79,15 @@ const Card: FC<Props> = ({
                         `${isShortType ? 'text-base' : 'text-[28px] leading-6'}`
                     }
                 >
-                    <strong>{title}</strong>
+                    <Highlighter
+                        highlightClassName="bg-golden py-0.5"
+                        searchWords={[searchWord ?? '']}
+                        autoEscape={false}
+                        caseSensitive={false}
+                        textToHighlight={title}
+                    />
                 </div>
-                <div className="">
+                <div>
                     <p
                         className={`${type == 'short' ? 'line-clamp-2' : 'line-clamp-none'} text-xs leading-[14px] text-[#101828]`}
                     >
