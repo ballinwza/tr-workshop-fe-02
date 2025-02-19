@@ -1,5 +1,5 @@
-import BlogProvider from '@/sections/providers/Blog.provider'
+import BlogsProvider from '@/sections/providers/Blogs.provider'
 
-export default function BlogPage() {
-    return <BlogProvider />
+export default function BlogsPage() {
+    return <BlogsProvider />
 }
