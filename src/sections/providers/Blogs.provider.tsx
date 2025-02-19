@@ -7,13 +7,15 @@ import Dropdown from '@/sections/components/dropdown/Dropdown'
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { FC, Fragment, useEffect, useState } from 'react'
 import CreateModal from '../components/modal/CreateModal'
+import InputSearch from '../components/search/InputSearch'
 
-const BlogProvider: FC = () => {
+const BlogsProvider: FC = () => {
     const { placards, fetchPlacards, clearPlacards } = usePlacardStore(
         (state) => state,
     )
     const [community, setCommunity] = useState<string>('community')
     const [isModalActive, setIsModalActive] = useState<boolean>(false)
+    const [searchText, setSearchText] = useState<string>('')
 
     useEffect(() => {
         fetchPlacards()
@@ -32,12 +34,17 @@ const BlogProvider: FC = () => {
             />
             <div
                 className={
-                    `px-4 py-[47px] ` +
-                    `md:max-w-[798px] md:mx-10 md:my-[34px] `
+                    `px-4 py-[47px] w-full ` +
+                    `md:max-w-[798px] md:px-10 md:py-[34px] `
                 }
             >
                 <div className="flex items-center justify-between mb-6">
-                    <div>test</div>
+                    <div>
+                        <InputSearch
+                            text={searchText}
+                            setTextValue={setSearchText}
+                        />
+                    </div>
                     <div className="flex items-center gap-[10px]">
                         <div>
                             <Dropdown
@@ -63,6 +70,7 @@ const BlogProvider: FC = () => {
                                 tag={placard.community}
                                 description={placard.description}
                                 commentCount={placard.commentId.length}
+                                searchWord={searchText}
                             />
                         ))}
                 </div>
@@ -71,4 +79,4 @@ const BlogProvider: FC = () => {
     )
 }
 
-export default BlogProvider
+export default BlogsProvider

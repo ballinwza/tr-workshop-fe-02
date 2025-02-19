@@ -14,7 +14,7 @@
     --text: #191919;
     --black: #000000;
     --white: #ffffff;
-    --golden: #ffffff;
+    --golden: rgba(197, 163, 101, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {

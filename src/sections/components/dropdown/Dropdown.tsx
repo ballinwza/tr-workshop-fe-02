@@ -25,7 +25,7 @@ const Dropdown: FC<Props> = ({
                 `relative ` +
                 `${
                     isPlain
-                        ? 'min-w-[320px] relative z-10'
+                        ? 'md:min-w-[320px] z-10'
                         : 'bg-white border border-success rounded-lg'
                 }`
             }

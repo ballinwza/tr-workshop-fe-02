@@ -12,12 +12,12 @@ const MobileMenu: FC<Props> = ({ isOpen, setIsOpen }: Props) => {
     return (
         <Fragment>
             <div
-                className="transition-all absolute bottom-0 top-0 right-0 z-50 bg-green-500 rounded-l-xl"
+                className="transition-all absolute bottom-0 top-0 right-0 z-50 bg-green-500 rounded-l-xl overflow-hidden"
                 style={{
                     width: isOpen ? '280px' : '0',
                 }}
             >
-                <div className="px-[33px] py-1.5 mb-9 mt-8">
+                <div className="px-[33px] py-1.5 mb-9 mt-8 cursor-pointer">
                     <Image
                         onClick={() => setIsOpen(false)}
                         src="/icons/forward-icon.svg"
