@@ -1,15 +1,12 @@
 import { IPlacardRepository } from '@/modules/placard/application/port/placard.repository.port'
 import { IPlacard } from '@/modules/placard/domain/model/placard.model'
-import axios from 'axios'
 import { PlacardEntityMapper } from '../mapper/placard.mapper'
 import { axiosWithRules } from '@/sections/shared/utils/fetchRule.utils'
 
 export class PlacardRepository implements IPlacardRepository {
     async getAll(): Promise<IPlacard[]> {
         try {
-            const response = await axios.get(
-                'http://localhost:8000/placard/find-all',
-            )
+            const response = await axiosWithRules.get('/placard/find-all')
 
             return PlacardEntityMapper.toDomainList(response.data)
         } catch (error) {
