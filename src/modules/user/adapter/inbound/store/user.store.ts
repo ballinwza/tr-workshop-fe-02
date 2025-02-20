@@ -1,8 +1,7 @@
-// 'user server'
 import { IUser } from '@/modules/user/domain/model/user.model'
 import { create } from 'zustand'
 import { UserRepository } from '../../outbound/repository/user.repository'
-import { UserUsecase } from '@/modules/user/application/usecase/user.usecase'
+import { GetUserUsecase } from '@/modules/user/application/usecase/getUser.usecase'
 import { axiosWithRules } from '@/sections/shared/utils/fetchRule.utils'
 
 interface userState {
@@ -18,8 +17,9 @@ export const useUserStore = create<userState>((set, get) => ({
     user: null,
     fetchUser: async () => {
         const repo = new UserRepository()
-        const usecase = new UserUsecase(repo)
-        const user = await usecase.handle(get().inputUser)
+        const usecase = new GetUserUsecase(repo)
+        const user = await usecase.handle()
+
         set(() => ({
             user,
         }))
