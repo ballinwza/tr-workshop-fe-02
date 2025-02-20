@@ -6,5 +6,6 @@ export default async function BlogDetailPage({
     params: Promise<{ slug: string }>
 }) {
     const slug = (await params).slug
+
     return <div>{slug && <BlogDetailProvider placardId={slug} />}</div>
 }
