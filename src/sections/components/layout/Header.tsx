@@ -1,5 +1,5 @@
 'use client'
-import { FC, Fragment, useState } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 import Button from '../button/Button'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
@@ -9,10 +9,14 @@ import MobileMenu from './MobileMenu'
 import HamburgerButton from '../button/Hamburger'
 
 const HeaderDesktop: FC = () => {
-    const { user } = useUserStore((state) => state)
+    const { user, logout, fetchUser } = useUserStore((state) => state)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
     const router = useRouter()
     const { isDesktop } = useScreenSize()
+
+    useEffect(() => {
+        fetchUser()
+    }, [])
 
     return (
         <Fragment>
@@ -25,7 +29,7 @@ const HeaderDesktop: FC = () => {
                 <div className="italic font-normal text-xl">a Board</div>
                 <div>
                     {user ? (
-                        <div className="flex gap-5 items-center">
+                        <div className="flex gap-5 items-center w-full">
                             <div className="font-medium text-white text-base">
                                 {user.fullName}
                             </div>
@@ -43,6 +47,9 @@ const HeaderDesktop: FC = () => {
                                     onClick={() => setIsMobileMenuOpen(true)}
                                 />
                             )}
+                            <Button additionClass="!w-fit" onClick={logout}>
+                                Logout
+                            </Button>
                         </div>
                     ) : (
                         <Fragment>
