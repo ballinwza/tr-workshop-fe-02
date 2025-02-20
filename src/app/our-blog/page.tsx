@@ -1,5 +1,6 @@
 import OurBlogProvider from '@/sections/providers/OurBlog.provider'
 
 export default function OurBlogPage() {
-    return <OurBlogProvider />
+    return <div>ยังไม่เสร็จ</div>
+    // return <OurBlogProvider />
 }
