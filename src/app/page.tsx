@@ -1,3 +1,12 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+
 export default function HomePage() {
-    return <div>test Home</div>
+    const pathname = useRouter()
+
+    useEffect(() => {
+        pathname.push('/blogs')
+    }, [])
 }

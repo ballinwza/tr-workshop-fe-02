@@ -1,18 +1,21 @@
 import { FC, ReactNode } from 'react'
 import HeaderDesktop from './Header'
+import Sidebar from './Sidebar'
 
 interface Props {
     children: ReactNode
+    childClassName?: string
 }
-const Layout: FC<Props> = ({ children }: Props) => {
+const Layout: FC<Props> = ({ children, childClassName }: Props) => {
     return (
         <div className="flex flex-col">
-            <div>
-                <HeaderDesktop />
-            </div>
+            <HeaderDesktop />
+
             <div className="flex">
-                <div>Sidebar</div>
-                <div className="bg-green-500">{children}</div>
+                <Sidebar />
+                <div className={`flex-grow min-h-screen ${childClassName}`}>
+                    {children}
+                </div>
             </div>
         </div>
     )

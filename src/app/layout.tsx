@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import Layout from '@/sections/components/layout/Layout'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
+import '@ant-design/v5-patch-for-react-19'
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -27,9 +28,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
             >
-                <Layout>{children}</Layout>
+                <AntdRegistry>{children}</AntdRegistry>
             </body>
         </html>
     )
