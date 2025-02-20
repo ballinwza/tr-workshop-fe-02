@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
 
 const LoginProvider: FC = () => {
-    const { setInputUser, fetchUser } = useUserStore((state) => state)
+    const { login, setInputUser } = useUserStore((state) => state)
 
     return (
         <div
@@ -65,7 +65,7 @@ const LoginProvider: FC = () => {
                             />
                         </div>
                         <div>
-                            <Button onClick={fetchUser}>Sign In</Button>
+                            <Button onClick={login}>Sign In</Button>
                         </div>
                     </div>
                 </div>
