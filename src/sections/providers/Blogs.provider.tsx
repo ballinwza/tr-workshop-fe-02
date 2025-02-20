@@ -32,6 +32,7 @@ const BlogsProvider: FC = () => {
                 isActive={isModalActive}
                 setIsActive={setIsModalActive}
             />
+
             <div
                 className={
                     `px-4 py-[47px] w-full ` +
@@ -59,7 +60,7 @@ const BlogsProvider: FC = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-[0.5px] overflow-hidden rounded-xl w-full  bg-grey-100">
+                <div className="flex flex-col gap-[1px] overflow-hidden rounded-xl w-full  bg-grey-100">
                     {placards &&
                         placards.map((placard) => (
                             <Card
@@ -71,6 +72,7 @@ const BlogsProvider: FC = () => {
                                 description={placard.description}
                                 commentCount={placard.commentId.length}
                                 searchWord={searchText}
+                                slug={placard.id}
                             />
                         ))}
                 </div>
