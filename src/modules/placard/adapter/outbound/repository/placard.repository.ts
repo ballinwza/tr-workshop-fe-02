@@ -11,18 +11,18 @@ export class PlacardRepository implements IPlacardRepository {
             return PlacardEntityMapper.toDomainList(response.data)
         } catch (error) {
             console.error('Error PlacardRepository.getAll : ', error)
-            return []
+            throw error
         }
     }
 
-    async getByPlacardId(id: string): Promise<IPlacard | null> {
+    async getByPlacardId(id: string): Promise<IPlacard> {
         try {
             const response = await axiosWithRules.get(`/placard/find/${id}`)
 
             return PlacardEntityMapper.toDomain(response.data)
         } catch (error) {
             console.error('Error PlacardRepository.getByPlacardId : ', error)
-            return null
+            throw error
         }
     }
     async save(formValue: IPlacard): Promise<boolean> {
@@ -32,7 +32,7 @@ export class PlacardRepository implements IPlacardRepository {
             return true
         } catch (error) {
             console.error('Error PlacardRepository.save : ', error)
-            return false
+            throw error
         }
     }
 }
