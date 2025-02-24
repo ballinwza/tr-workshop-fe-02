@@ -1,14 +1,20 @@
 'use client'
 import { Input } from '@headlessui/react'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import Button from '../components/button/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+import { useRouter } from 'next/navigation'
 
 const LoginProvider: FC = () => {
-    const { login, setInputUser } = useUserStore((state) => state)
-
+    const { login, setInputUser, user } = useUserStore((state) => state)
+    const router = useRouter()
+    useEffect(() => {
+        if (user.id) {
+            router.replace('/blogs')
+        }
+    }, [user])
     return (
         <div
             className={

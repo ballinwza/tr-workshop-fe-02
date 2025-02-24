@@ -2,7 +2,7 @@ import { IUser } from '@/modules/user/domain/model/user.model'
 import { create } from 'zustand'
 import { UserRepository } from '../../outbound/repository/user.repository'
 
-import { axiosWithRules } from '@/sections/shared/utils/fetchRule.utils'
+import { axiosWithXApiKey } from '@/sections/shared/utils/fetchRule.utils'
 import { FetchUserUsecase } from '@/modules/user/application/usecase/fetchUser.usecase'
 import { message } from 'antd'
 
@@ -41,7 +41,7 @@ export const useUserStore = create<userState>((set, get) => ({
     },
     login: async () => {
         try {
-            const res = await axiosWithRules.post('/auth/login', {
+            const res = await axiosWithXApiKey.post('/auth/login', {
                 username: get().inputUser,
                 password: 'nothing',
             })
@@ -58,7 +58,7 @@ export const useUserStore = create<userState>((set, get) => ({
     },
     logout: async () => {
         try {
-            const res = await axiosWithRules.post('/auth/logout', {})
+            const res = await axiosWithXApiKey.post('/auth/logout', {})
             localStorage.removeItem('user_info')
             if (res.data.success) {
                 window.location.href = '/blogs'

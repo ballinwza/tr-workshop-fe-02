@@ -10,11 +10,13 @@ interface Props {
 }
 
 const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
-    const { placard, fetchPlacard } = usePlacardStore((state) => state)
+    const { placardDetail: placard, fetchPlacardDetail } = usePlacardStore(
+        (state) => state,
+    )
 
     useEffect(() => {
         if (placardId) {
-            fetchPlacard(placardId)
+            fetchPlacardDetail(placardId)
         }
     }, [])
 
