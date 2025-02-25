@@ -8,17 +8,21 @@ import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { FC, Fragment, useEffect, useState } from 'react'
 import CreateModal from '../components/modal/CreateModal'
 import InputSearch from '../components/search/InputSearch'
+import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+import { useRouter } from 'next/navigation'
 
 const BlogsProvider: FC = () => {
-    const { placards, fetchPlacards, clearPlacards } = usePlacardStore(
+    const { user } = useUserStore((state) => state)
+    const { placardList, fetchPlacardList, clearPlacards } = usePlacardStore(
         (state) => state,
     )
     const [community, setCommunity] = useState<string>('community')
     const [isModalActive, setIsModalActive] = useState<boolean>(false)
     const [searchText, setSearchText] = useState<string>('')
+    const router = useRouter()
 
     useEffect(() => {
-        fetchPlacards()
+        fetchPlacardList()
 
         return () => {
             clearPlacards()
@@ -54,15 +58,23 @@ const BlogsProvider: FC = () => {
                                 setDropdownValue={setCommunity}
                             />
                         </div>
-                        <Button onClick={() => setIsModalActive(true)}>
+                        <Button
+                            onClick={() => {
+                                if (user.id) {
+                                    setIsModalActive(true)
+                                } else {
+                                    router.replace('/login')
+                                }
+                            }}
+                        >
                             Create +
                         </Button>
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-[1px] overflow-hidden rounded-xl w-full  bg-grey-100">
-                    {placards &&
-                        placards.map((placard) => (
+                    {placardList &&
+                        placardList.map((placard) => (
                             <Card
                                 key={placard.id}
                                 name={placard.userId.fullName}
@@ -70,7 +82,7 @@ const BlogsProvider: FC = () => {
                                 avatarImageUrl={placard.userId.profileImageUrl}
                                 tag={placard.community}
                                 description={placard.description}
-                                commentCount={placard.commentId.length}
+                                commentCount={0}
                                 searchWord={searchText}
                                 slug={placard.id}
                             />

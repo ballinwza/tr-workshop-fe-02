@@ -33,7 +33,7 @@ const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
                     avatarImageUrl={placard.userId.profileImageUrl}
                     tag={placard.community}
                     description={placard.description}
-                    commentCount={placard.commentId.length}
+                    commentCount={0}
                     type="full"
                 />
             )}

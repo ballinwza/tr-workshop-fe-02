@@ -1,42 +1,55 @@
 import { IPlacard } from '@/modules/placard/domain/model/placard.model'
 import { create } from 'zustand'
 import { PlacardRepository } from '../../outbound/repository/placard.repository'
-import { PlacardsUsecase } from '@/modules/placard/application/usecase/placards.usecase'
-import { PlacardUsecase } from '@/modules/placard/application/usecase/placard.usecase'
+import { GetPlacardByIdUsecase } from '@/modules/placard/application/usecase/getPlacardById.usecase'
+import { GetPlacardListUsecase } from '@/modules/placard/application/usecase/getPlacardList.usecase'
+import { DeletePlacardUsecase } from '@/modules/placard/application/usecase/deletePlacard.usecase'
+import { message } from 'antd'
 
 interface placardState {
-    placards: IPlacard[]
-    fetchPlacards: () => Promise<void>
+    placardList: IPlacard[]
+    fetchPlacardList: () => Promise<void>
     clearPlacards: () => void
-    placard: IPlacard | null
-    fetchPlacard: (userId: string) => Promise<void>
+    placardDetail: IPlacard | null
+    fetchPlacardDetail: (userId: string) => Promise<void>
+    deletePlacard: (id: string) => Promise<void>
 }
-export const usePlacardStore = create<placardState>((set) => ({
-    placards: [],
-    fetchPlacards: async () => {
-        const repo = new PlacardRepository()
-        const usecase = new PlacardsUsecase(repo)
 
-        const placards = await usecase.handle()
+export const usePlacardStore = create<placardState>((set) => ({
+    placardList: [],
+    fetchPlacardList: async () => {
+        const repo = new PlacardRepository()
+        const usecase = new GetPlacardListUsecase(repo)
+
+        const placardList = await usecase.handle()
 
         set(() => ({
-            placards,
+            placardList,
         }))
     },
     clearPlacards: () => {
         set(() => ({
-            placards: [],
+            placardList: [],
         }))
     },
-    placard: null,
-    fetchPlacard: async (userId: string) => {
+    placardDetail: null,
+    fetchPlacardDetail: async (userId: string) => {
         const repo = new PlacardRepository()
-        const usecase = new PlacardUsecase(repo)
+        const usecase = new GetPlacardByIdUsecase(repo)
 
         const placard = await usecase.handle(userId)
 
         set(() => ({
-            placard,
+            placardDetail: placard,
         }))
+    },
+    deletePlacard: async (id: string) => {
+        const repo = new PlacardRepository()
+        const usecase = new DeletePlacardUsecase(repo)
+
+        if (id) {
+            await usecase.handle(id)
+            message.success('Delete Succesful')
+        }
     },
 }))

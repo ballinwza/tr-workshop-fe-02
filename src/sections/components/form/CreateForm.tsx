@@ -12,6 +12,7 @@ import { capitalize } from 'radash'
 import { Textarea } from '@headlessui/react'
 import Image from 'next/image'
 import Button from '../button/Button'
+import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
 
 interface Props {
     onSubmit: () => void
@@ -19,6 +20,7 @@ interface Props {
 }
 const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
     const { saveForm } = usePlacardFormStore((state) => state)
+    const { user } = useUserStore((state) => state)
 
     const [text, SetText] = useState<string>('Choose a community')
     const [contactForm] = useForm()
@@ -31,8 +33,14 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
 
     const onFinish: FormProps<IPlacard>['onFinish'] = (values) => {
         onSubmit()
-        saveForm(values)
-        message.success('Success')
+        contactForm.setFieldValue('userId', user.id)
+        contactForm.setFieldValue('commentId', [])
+
+        if (contactForm.getFieldValue('userId')) {
+            saveForm(values)
+            message.success('Success')
+        }
+        console.log(contactForm.getFieldsValue())
     }
 
     const onFinishFailed: FormProps<IPlacard>['onFinishFailed'] = (
@@ -67,6 +75,7 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
             autoComplete="off"
         >
             <Form.Item<IPlacard> name="id" noStyle />
+            <Form.Item<IPlacard> name="userId" initialValue={user.id} noStyle />
 
             <Form.Item<IPlacard>
                 name="community"
