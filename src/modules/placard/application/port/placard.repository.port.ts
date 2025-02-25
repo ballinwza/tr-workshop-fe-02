@@ -1,7 +1,9 @@
 import { IPlacard } from '../../domain/model/placard.model'
 
 export interface IPlacardRepository {
-    getAll: () => Promise<IPlacard[]>
+    getList: () => Promise<IPlacard[]>
+    getListByUserId: (userId: string) => Promise<IPlacard[]>
     getByPlacardId: (placardId: string) => Promise<IPlacard>
     save: (formValue: IPlacard) => Promise<boolean>
+    delete: (id: string) => Promise<boolean>
 }

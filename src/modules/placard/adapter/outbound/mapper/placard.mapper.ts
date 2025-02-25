@@ -8,14 +8,13 @@ export class PlacardEntityMapper {
     }
 
     public static toDomain(entity: PlacardEntity): IPlacard {
-        const { id, userId, title, description, commentId, community } = entity
         return {
-            id,
-            userId: UserEntityMapper.toDomain(userId),
-            title,
-            description,
-            commentId,
-            community,
+            id: entity.id,
+            userId: UserEntityMapper.toDomain(entity.userId),
+            title: entity.title,
+            description: entity.description,
+            commentId: entity.commentId,
+            community: entity.community ?? [],
         }
     }
 }

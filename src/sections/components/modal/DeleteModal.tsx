@@ -40,13 +40,21 @@ const DeleteModal: FC<Props> = ({ isActive, setIsActive }: Props) => {
                     }
                 >
                     <div className={`w-full ` + `md:order-2`}>
-                        <Button mainColor="#F23536" theme="dark">
+                        <Button
+                            additionClass="!w-full"
+                            mainColor="#F23536"
+                            theme="dark"
+                            onClick={() => {
+                                setIsActive(false)
+                            }}
+                        >
                             Delete
                         </Button>
                     </div>
 
                     <div className={`w-full ` + `md:order-1`}>
                         <Button
+                            additionClass="!w-full"
                             theme="light"
                             mainColor="#5B5B5B"
                             borderColor="#DADADA"

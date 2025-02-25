@@ -1,11 +1,19 @@
 import { IPlacard } from '../../domain/model/placard.model'
 import { IPlacardRepository } from '../port/placard.repository.port'
-import { ISavePlacardUsecase } from '../../domain/port/savePlacard.usecase.port'
 
-export class SavePlacardUsecase implements ISavePlacardUsecase {
+export class SavePlacardUsecase {
     constructor(private readonly repo: IPlacardRepository) {}
 
     async handle(formValue: IPlacard): Promise<boolean> {
-        return await this.repo.save(formValue)
+        //TODO: handle error
+        try {
+            if (formValue.userId) {
+                return await this.repo.save(formValue)
+            }
+
+            return false
+        } catch (error) {
+            throw error
+        }
     }
 }
