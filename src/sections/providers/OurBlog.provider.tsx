@@ -1,33 +1,35 @@
 'use client'
 
-import { usePlacardStore } from '@/modules/placard/adapter/inbound/store/placard.store'
-import Button from '@/sections/components/button/Button'
 import Card from '@/sections/components/card/Card'
 import Dropdown from '@/sections/components/dropdown/Dropdown'
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { FC, Fragment, useEffect, useState } from 'react'
-import CreateModal from '../components/modal/CreateModal'
-import Image from 'next/image'
-import DeleteModal from '../components/modal/DeleteModal'
+
+import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+import { useOurPlacardStore } from '@/modules/placard/adapter/inbound/store/ourPlacard.store'
+import { usePlacardStore } from '@/modules/placard/adapter/inbound/store/placard.store'
+import Button from '../components/button/Button'
 
 const OurBlogProvider: FC = () => {
-    const { placards, fetchPlacards, clearPlacards } = usePlacardStore(
-        (state) => state,
-    )
+    const { ourPlacardList, fetchOurPlacardList, clearOurPlacard } =
+        useOurPlacardStore((state) => state)
+    const { deletePlacard } = usePlacardStore((state) => state)
+    const { user } = useUserStore((state) => state)
+
     const [community, setCommunity] = useState<string>('community')
-    const [isCreateModalActive, setIsCreateModalActive] =
-        useState<boolean>(false)
-    const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false)
-    const [isDeleteModalActive, setIsDeleteModalActive] =
-        useState<boolean>(false)
+    // const [isCreateModalActive, setIsCreateModalActive] =
+    //     useState<boolean>(false)
+    // const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false)
+    // const [isDeleteModalActive, setIsDeleteModalActive] =
+    //     useState<boolean>(false)
 
     useEffect(() => {
-        fetchPlacards()
+        fetchOurPlacardList()
 
         return () => {
-            clearPlacards()
+            clearOurPlacard()
         }
-    }, [])
+    }, [user])
 
     return (
         <Fragment>
@@ -38,24 +40,22 @@ const OurBlogProvider: FC = () => {
                 }
             >
                 <div className="flex items-center justify-between mb-6">
-                    <div>test</div>
-                    <div className="flex items-center gap-[10px]">
-                        <div>
+                    <div className="flex items-center justify-between gap-[10px] w-full">
+                        <div className="text-start">
                             <Dropdown
                                 menuList={getCommunityEnumValues()}
                                 dropdownValue={community}
                                 setDropdownValue={setCommunity}
                             />
                         </div>
-                        <Button onClick={() => setIsCreateModalActive(true)}>
-                            Create +
-                        </Button>
+                        {/* <Button onClick={() => setIsCreateModalActive(true)}> */}
+                        <Button>Create +</Button>
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-[1px] overflow-hidden rounded-xl w-full  bg-grey-100">
-                    {placards &&
-                        placards.map((placard) => (
+                    {ourPlacardList &&
+                        ourPlacardList.map((placard) => (
                             <Card
                                 key={placard.id}
                                 name={placard.userId.fullName}
@@ -63,50 +63,52 @@ const OurBlogProvider: FC = () => {
                                 avatarImageUrl={placard.userId.profileImageUrl}
                                 tag={placard.community}
                                 description={placard.description}
-                                commentCount={placard.commentId.length}
-                                extraIcon={
-                                    <div className="flex gap-[15px]">
-                                        <div
-                                            className="cursor-pointer"
-                                            onClick={() =>
-                                                setIsEditModalActive(true)
-                                            }
-                                        >
-                                            <Image
-                                                className={
-                                                    `w-3 h-[11px] ` +
-                                                    `md:w-4 md:h-4`
-                                                }
-                                                src="/icons/edit-icon.svg"
-                                                alt="edit icon"
-                                                width={12}
-                                                height={11}
-                                            />
-                                        </div>
-                                        <div
-                                            className="cursor-pointer"
-                                            onClick={() =>
-                                                setIsDeleteModalActive(true)
-                                            }
-                                        >
-                                            <Image
-                                                className={
-                                                    `w-3 h-[13px] ` +
-                                                    `md:w-4 md:h-4`
-                                                }
-                                                src="/icons/trash-icon.svg"
-                                                alt="trash icon"
-                                                width={12}
-                                                height={13}
-                                            />
-                                        </div>
-                                    </div>
-                                }
+                                commentCount={0}
+                                extraIcon={true}
+                                onDelete={() => deletePlacard(placard.id)}
+                                // extraIcon={
+                                //     <div className="flex gap-[15px]">
+                                //         <div
+                                //             className="cursor-pointer"
+                                //             onClick={() =>
+                                //                 setIsEditModalActive(true)
+                                //             }
+                                //         >
+                                //             <Image
+                                //                 className={
+                                //                     `w-3 h-[11px] ` +
+                                //                     `md:w-4 md:h-4`
+                                //                 }
+                                //                 src="/icons/edit-icon.svg"
+                                //                 alt="edit icon"
+                                //                 width={12}
+                                //                 height={11}
+                                //             />
+                                //         </div>
+                                //         <div
+                                //             className="cursor-pointer"
+                                //             onClick={() =>
+                                //                 setIsDeleteModalActive(true)
+                                //             }
+                                //         >
+                                //             <Image
+                                //                 className={
+                                //                     `w-3 h-[13px] ` +
+                                //                     `md:w-4 md:h-4`
+                                //                 }
+                                //                 src="/icons/trash-icon.svg"
+                                //                 alt="trash icon"
+                                //                 width={12}
+                                //                 height={13}
+                                //             />
+                                //         </div>
+                                //     </div>
+                                // }
                             />
                         ))}
                 </div>
             </div>
-            <CreateModal
+            {/* <CreateModal
                 title="Create Post"
                 isActive={isCreateModalActive}
                 setIsActive={setIsCreateModalActive}
@@ -119,7 +121,7 @@ const OurBlogProvider: FC = () => {
             <DeleteModal
                 isActive={isDeleteModalActive}
                 setIsActive={setIsDeleteModalActive}
-            />
+            /> */}
         </Fragment>
     )
 }

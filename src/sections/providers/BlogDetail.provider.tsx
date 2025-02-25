@@ -10,11 +10,13 @@ interface Props {
 }
 
 const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
-    const { placard, fetchPlacard } = usePlacardStore((state) => state)
+    const { placardDetail: placard, fetchPlacardDetail } = usePlacardStore(
+        (state) => state,
+    )
 
     useEffect(() => {
         if (placardId) {
-            fetchPlacard(placardId)
+            fetchPlacardDetail(placardId)
         }
     }, [])
 
@@ -31,7 +33,7 @@ const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
                     avatarImageUrl={placard.userId.profileImageUrl}
                     tag={placard.community}
                     description={placard.description}
-                    commentCount={placard.commentId.length}
+                    commentCount={0}
                     type="full"
                 />
             )}

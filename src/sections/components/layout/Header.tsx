@@ -28,7 +28,7 @@ const HeaderDesktop: FC = () => {
             >
                 <div className="italic font-normal text-xl">a Board</div>
                 <div>
-                    {user ? (
+                    {user.id ? (
                         <div className="flex gap-5 items-center w-full">
                             <div className="font-medium text-white text-base">
                                 {user.fullName}
@@ -58,9 +58,18 @@ const HeaderDesktop: FC = () => {
                                     Sign In
                                 </Button>
                             ) : (
-                                <HamburgerButton
-                                    onClick={() => setIsMobileMenuOpen(true)}
-                                />
+                                <div className="flex gap-4">
+                                    <Button
+                                        onClick={() => router.push('/login')}
+                                    >
+                                        Sign In
+                                    </Button>
+                                    <HamburgerButton
+                                        onClick={() =>
+                                            setIsMobileMenuOpen(true)
+                                        }
+                                    />
+                                </div>
                             )}
                         </Fragment>
                     )}

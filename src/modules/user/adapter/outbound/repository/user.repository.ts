@@ -1,15 +1,17 @@
-import { IUserRepository } from '@/modules/user/application/port/user.repository.port'
+'user server'
 import { IUser } from '@/modules/user/domain/model/user.model'
 import { UserEntityMapper } from '../mapper/user.mapper'
-import { axiosWithRules } from '@/sections/shared/utils/fetchRule.utils'
+import { IUserRepository } from '@/modules/user/application/port/user.repository.port'
+import { axiosWithAuth } from '@/sections/shared/utils/fetchRule.utils'
 
 export class UserRepository implements IUserRepository {
-    async getUser(): Promise<IUser> {
+    async fetchUser(): Promise<IUser> {
         try {
-            const response = await axiosWithRules.get('user/find')
+            const response = await axiosWithAuth.get('/user/find')
+
             return UserEntityMapper.toDomain(response.data)
         } catch (error) {
-            console.error('Error UserRepository')
+            console.error('Error UserRepository.fetchUser')
             throw error
         }
     }

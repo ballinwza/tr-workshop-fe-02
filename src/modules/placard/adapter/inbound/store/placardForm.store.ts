@@ -11,14 +11,19 @@ interface placardFormState {
 
 export const usePlacardFormStore = create<placardFormState>(() => ({
     saveForm: async (formValue: IPlacard) => {
-        const repo = new PlacardRepository()
-        const usecase = new SavePlacardUsecase(repo)
+        try {
+            const repo = new PlacardRepository()
+            const usecase = new SavePlacardUsecase(repo)
 
-        const placards = await usecase.handle(formValue)
-        if (placards) {
-            usePlacardStore.getState().fetchPlacards()
+            const placards = await usecase.handle(formValue)
+            if (placards) {
+                usePlacardStore.getState().fetchPlacardList()
+            }
+
+            return
+        } catch (error) {
+            console.error('Error usePlacardFormStore.saveForm ', error)
+            return
         }
-
-        return
     },
 }))
