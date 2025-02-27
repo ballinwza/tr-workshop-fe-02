@@ -7,13 +7,17 @@ import { FC, Fragment, useEffect, useState } from 'react'
 
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
 import { useOurPlacardStore } from '@/modules/placard/adapter/inbound/store/ourPlacard.store'
-import { usePlacardStore } from '@/modules/placard/adapter/inbound/store/placard.store'
+
 import Button from '../components/button/Button'
 
 const OurBlogProvider: FC = () => {
-    const { ourPlacardList, fetchOurPlacardList, clearOurPlacard } =
-        useOurPlacardStore((state) => state)
-    const { deletePlacard } = usePlacardStore((state) => state)
+    const {
+        ourPlacardList,
+        fetchOurPlacardList,
+        clearOurPlacard,
+        deletePlacard,
+    } = useOurPlacardStore((state) => state)
+
     const { user } = useUserStore((state) => state)
 
     const [community, setCommunity] = useState<string>('community')
@@ -58,9 +62,9 @@ const OurBlogProvider: FC = () => {
                         ourPlacardList.map((placard) => (
                             <Card
                                 key={placard.id}
-                                name={placard.userId.fullName}
+                                name={placard.user.fullName}
                                 title={placard.title}
-                                avatarImageUrl={placard.userId.profileImageUrl}
+                                avatarImageUrl={placard.user.profileImageUrl}
                                 tag={placard.community}
                                 description={placard.description}
                                 commentCount={0}

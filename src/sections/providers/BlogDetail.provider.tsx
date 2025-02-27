@@ -28,9 +28,9 @@ const BlogDetailProvider: FC<Props> = ({ placardId }: Props) => {
             {placard && (
                 <Card
                     key={placard.id}
-                    name={placard.userId.fullName}
+                    name={placard.user.fullName}
                     title={placard.title}
-                    avatarImageUrl={placard.userId.profileImageUrl}
+                    avatarImageUrl={placard.user.profileImageUrl}
                     tag={placard.community}
                     description={placard.description}
                     commentCount={0}

@@ -1,9 +1,8 @@
-import { IUser } from '@/modules/user/domain/model/user.model'
 import { CommunityEnum } from '@/sections/shared/enums/community.enum'
 
-export interface IPlacard {
-    id: string
-    user: IUser
+export interface IPlacardForm {
+    id?: string
+    userId: string
     title: string
     description: string
     community: CommunityEnum
