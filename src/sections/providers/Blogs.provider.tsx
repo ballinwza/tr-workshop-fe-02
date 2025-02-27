@@ -60,7 +60,7 @@ const BlogsProvider: FC = () => {
                         </div>
                         <Button
                             onClick={() => {
-                                if (user.id) {
+                                if (user) {
                                     setIsModalActive(true)
                                 } else {
                                     router.replace('/login')

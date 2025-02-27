@@ -1,9 +1,6 @@
 import { IPlacardRepository } from '@/modules/placard/application/port/placard.repository.port'
 
-import {
-    axiosWithAuth,
-    axiosWithXApiKey,
-} from '@/sections/shared/utils/fetchRule.utils'
+import { axiosWithXApiKey } from '@/sections/shared/utils/fetchRule.utils'
 import { PlacardEntity, SavePlacardEntity } from '../entity/placard.entity'
 
 export class PlacardRepository implements IPlacardRepository {
@@ -21,7 +18,7 @@ export class PlacardRepository implements IPlacardRepository {
 
     async getListByUserId(userId: string): Promise<PlacardEntity[]> {
         try {
-            const response = await axiosWithAuth.get(
+            const response = await axiosWithXApiKey.get(
                 `/placard/find/list/${userId}`,
             )
             const placardEntity: PlacardEntity[] = response.data.data
@@ -46,7 +43,7 @@ export class PlacardRepository implements IPlacardRepository {
 
     async save(formValue: SavePlacardEntity): Promise<boolean> {
         try {
-            const response = await axiosWithAuth.post(
+            const response = await axiosWithXApiKey.post(
                 `/placard/save`,
                 formValue,
             )
@@ -58,7 +55,7 @@ export class PlacardRepository implements IPlacardRepository {
     }
     async update(formValue: SavePlacardEntity): Promise<boolean> {
         try {
-            const response = await axiosWithAuth.post(
+            const response = await axiosWithXApiKey.post(
                 `/placard/update`,
                 formValue,
             )
@@ -71,7 +68,7 @@ export class PlacardRepository implements IPlacardRepository {
 
     async delete(id: string): Promise<boolean> {
         try {
-            const response = await axiosWithAuth.post(`/placard/delete`, {
+            const response = await axiosWithXApiKey.post(`/placard/delete`, {
                 id,
             })
 
