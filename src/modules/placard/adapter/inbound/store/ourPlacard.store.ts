@@ -18,7 +18,7 @@ export const useOurPlacardStore = create<ourPlacardState>((set, get) => ({
     fetchOurPlacardList: async () => {
         const user = useUserStore.getState().user
 
-        if (user.id) {
+        if (user) {
             const repo = new PlacardRepository()
             const usecase = new GetPlacardListByUserIdUsecase(repo)
 
