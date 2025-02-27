@@ -28,7 +28,7 @@ const HeaderDesktop: FC = () => {
             >
                 <div className="italic font-normal text-xl">a Board</div>
                 <div>
-                    {user.id ? (
+                    {user ? (
                         <div className="flex gap-5 items-center w-full">
                             <div className="font-medium text-white text-base">
                                 {user.fullName}

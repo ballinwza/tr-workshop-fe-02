@@ -1,23 +1,21 @@
-'user server'
-import { IUser } from '@/modules/user/domain/model/user.model'
-import { UserEntityMapper } from '../mapper/user.mapper'
 import { IUserRepository } from '@/modules/user/application/port/user.repository.port'
-import { axiosWithAuth } from '@/sections/shared/utils/fetchRule.utils'
-import Cookies from 'js-cookie'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import { axiosWithXApiKey } from '@/sections/shared/utils/fetchRule.utils'
+import { UserEntity } from '../entity/user.entity'
 
 export class UserRepository implements IUserRepository {
-    async fetchUser(): Promise<IUser> {
+    async fetchUser(): Promise<UserEntity> {
         try {
-            const cookies = Cookies.get('access_token')
+            // const cookies = Cookies.get('access_token')
 
-            const decoded = jwt.decode(cookies ?? '') as JwtPayload
+            // const decoded = jwt.decode(cookies ?? '') as JwtPayload
 
-            const response = await axiosWithAuth.post('/user/find', {
-                id: decoded?.id,
-            })
+            // const response = await axiosWithAuth.post('/user/find', {
+            //     id: decoded?.id,
+            // })
 
-            return UserEntityMapper.toDomain(response.data.data)
+            const response = await axiosWithXApiKey.get('/user/find')
+
+            return response.data.data
         } catch (error) {
             console.error('Error UserRepository.fetchUser')
             throw error

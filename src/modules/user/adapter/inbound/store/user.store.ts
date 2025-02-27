@@ -7,22 +7,22 @@ import { FetchUserUsecase } from '@/modules/user/application/usecase/fetchUser.u
 import { message } from 'antd'
 
 interface userState {
-    user: IUser
+    user: IUser | null
     fetchUser: () => Promise<void>
     inputUser: string
     setInputUser: (val: string) => void
     login: () => Promise<void>
     logout: () => Promise<void>
 }
-export const defaultUser: IUser = {
-    id: '',
-    profileImageUrl: '',
-    fullName: '',
-    username: '',
-}
+// export const defaultUser: IUser = {
+//     id: '',
+//     profileImageUrl: '',
+//     fullName: '',
+//     username: '',
+// }
 
 export const useUserStore = create<userState>((set, get) => ({
-    user: defaultUser,
+    user: null,
     fetchUser: async () => {
         const repo = new UserRepository()
         const usecase = new FetchUserUsecase(repo)
