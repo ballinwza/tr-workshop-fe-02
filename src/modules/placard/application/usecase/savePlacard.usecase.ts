@@ -1,18 +1,17 @@
-import { IPlacard } from '../../domain/model/placard.model'
+import { IPlacardForm } from '../../domain/model/placardForm.model'
+import { SavePlacardEntityMapper } from '../port/mapper/savePlacard.mapper'
 import { IPlacardRepository } from '../port/placard.repository.port'
 
 export class SavePlacardUsecase {
     constructor(private readonly repo: IPlacardRepository) {}
 
-    async handle(formValue: IPlacard): Promise<boolean> {
-        //TODO: handle error
+    async handle(formValue: IPlacardForm): Promise<boolean> {
         try {
-            if (formValue.userId) {
-                return await this.repo.save(formValue)
-            }
-
-            return false
+            const mapping = SavePlacardEntityMapper.toEntity(formValue)
+            const result = await this.repo.save(mapping)
+            return result
         } catch (error) {
+            console.error('Error SavePlacardUsecase : ', error)
             throw error
         }
     }

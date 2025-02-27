@@ -3,8 +3,6 @@ import { create } from 'zustand'
 import { PlacardRepository } from '../../outbound/repository/placard.repository'
 import { GetPlacardByIdUsecase } from '@/modules/placard/application/usecase/getPlacardById.usecase'
 import { GetPlacardListUsecase } from '@/modules/placard/application/usecase/getPlacardList.usecase'
-import { DeletePlacardUsecase } from '@/modules/placard/application/usecase/deletePlacard.usecase'
-import { message } from 'antd'
 
 interface placardState {
     placardList: IPlacard[]
@@ -12,7 +10,6 @@ interface placardState {
     clearPlacards: () => void
     placardDetail: IPlacard | null
     fetchPlacardDetail: (userId: string) => Promise<void>
-    deletePlacard: (id: string) => Promise<void>
 }
 
 export const usePlacardStore = create<placardState>((set) => ({
@@ -23,9 +20,11 @@ export const usePlacardStore = create<placardState>((set) => ({
 
         const placardList = await usecase.handle()
 
-        set(() => ({
-            placardList,
-        }))
+        if (placardList) {
+            set(() => ({
+                placardList,
+            }))
+        }
     },
     clearPlacards: () => {
         set(() => ({
@@ -33,23 +32,14 @@ export const usePlacardStore = create<placardState>((set) => ({
         }))
     },
     placardDetail: null,
-    fetchPlacardDetail: async (userId: string) => {
+    fetchPlacardDetail: async (placardId: string) => {
         const repo = new PlacardRepository()
         const usecase = new GetPlacardByIdUsecase(repo)
 
-        const placard = await usecase.handle(userId)
+        const placard = await usecase.handle(placardId)
 
         set(() => ({
             placardDetail: placard,
         }))
-    },
-    deletePlacard: async (id: string) => {
-        const repo = new PlacardRepository()
-        const usecase = new DeletePlacardUsecase(repo)
-
-        if (id) {
-            await usecase.handle(id)
-            message.success('Delete Succesful')
-        }
     },
 }))

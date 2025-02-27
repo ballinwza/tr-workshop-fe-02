@@ -32,7 +32,7 @@ const Card: FC<Props> = ({
     type = 'short',
     extraIcon,
     searchWord,
-    // onDelete,
+    onDelete,
 }: Props) => {
     const isShortType = type === 'short' ? true : false
     // const [isEditModalActive, setIsEditModalActive] = useState<boolean>(false)
@@ -57,6 +57,7 @@ const Card: FC<Props> = ({
                 <DeleteModal
                     isActive={isDeleteModalActive}
                     setIsActive={setIsDeleteModalActive}
+                    onDelete={onDelete ? () => onDelete() : () => {}}
                 />
                 <div
                     className={

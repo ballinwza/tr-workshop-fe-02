@@ -6,13 +6,14 @@ import type { MenuProps } from 'antd'
 
 import { useForm } from 'antd/es/form/Form'
 import { usePlacardFormStore } from '@/modules/placard/adapter/inbound/store/placardForm.store'
-import { IPlacard } from '@/modules/placard/domain/model/placard.model'
+
 import { getCommunityEnumValues } from '@/sections/shared/enums/community.enum'
 import { capitalize } from 'radash'
 import { Textarea } from '@headlessui/react'
 import Image from 'next/image'
 import Button from '../button/Button'
 import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+import { IPlacardForm } from '@/modules/placard/domain/model/placardForm.model'
 
 interface Props {
     onSubmit: () => void
@@ -31,19 +32,16 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
         }
     }, [])
 
-    const onFinish: FormProps<IPlacard>['onFinish'] = (values) => {
+    const onFinish: FormProps<IPlacardForm>['onFinish'] = (values) => {
         onSubmit()
-        contactForm.setFieldValue('userId', user.id)
-        contactForm.setFieldValue('commentId', [])
 
         if (contactForm.getFieldValue('userId')) {
             saveForm(values)
             message.success('Success')
         }
-        console.log(contactForm.getFieldsValue())
     }
 
-    const onFinishFailed: FormProps<IPlacard>['onFinishFailed'] = (
+    const onFinishFailed: FormProps<IPlacardForm>['onFinishFailed'] = (
         errorInfo,
     ) => {
         message.error('Unsuccess')
@@ -74,10 +72,14 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
         >
-            <Form.Item<IPlacard> name="id" noStyle />
-            <Form.Item<IPlacard> name="userId" initialValue={user.id} noStyle />
+            <Form.Item<IPlacardForm> name="id" initialValue={null} noStyle />
+            <Form.Item<IPlacardForm>
+                name="userId"
+                initialValue={user.id}
+                noStyle
+            />
 
-            <Form.Item<IPlacard>
+            <Form.Item<IPlacardForm>
                 name="community"
                 rules={[
                     { required: true, message: 'Please select some Community' },
@@ -118,7 +120,7 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
                 </Dropdown>
             </Form.Item>
 
-            <Form.Item<IPlacard>
+            <Form.Item<IPlacardForm>
                 name="title"
                 rules={[{ required: true, message: 'Please fill some title' }]}
                 wrapperCol={{ span: 24 }}
@@ -130,7 +132,7 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
                 />
             </Form.Item>
 
-            <Form.Item<IPlacard>
+            <Form.Item<IPlacardForm>
                 name="description"
                 rules={[
                     { required: true, message: 'Please fill some description' },

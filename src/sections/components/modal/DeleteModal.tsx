@@ -7,9 +7,10 @@ import Button from '../button/Button'
 interface Props {
     isActive: boolean
     setIsActive: (val: boolean) => void
+    onDelete: () => void
 }
 
-const DeleteModal: FC<Props> = ({ isActive, setIsActive }: Props) => {
+const DeleteModal: FC<Props> = ({ isActive, setIsActive, onDelete }: Props) => {
     return (
         <Modal isActive={isActive} setIsActive={setIsActive}>
             <div
@@ -46,6 +47,7 @@ const DeleteModal: FC<Props> = ({ isActive, setIsActive }: Props) => {
                             theme="dark"
                             onClick={() => {
                                 setIsActive(false)
+                                onDelete()
                             }}
                         >
                             Delete

@@ -1,5 +1,5 @@
 import { IPlacard } from '@/modules/placard/domain/model/placard.model'
-import { PlacardEntity } from '../entity/placard.entity'
+import { PlacardEntity } from '../../../adapter/outbound/entity/placard.entity'
 import { UserEntityMapper } from '@/modules/user/adapter/outbound/mapper/user.mapper'
 
 export class PlacardEntityMapper {
@@ -10,11 +10,10 @@ export class PlacardEntityMapper {
     public static toDomain(entity: PlacardEntity): IPlacard {
         return {
             id: entity.id,
-            userId: UserEntityMapper.toDomain(entity.userId),
+            user: UserEntityMapper.toDomain(entity.user),
             title: entity.title,
             description: entity.description,
-            commentId: entity.commentId,
-            community: entity.community ?? [],
+            community: entity.community,
         }
     }
 }

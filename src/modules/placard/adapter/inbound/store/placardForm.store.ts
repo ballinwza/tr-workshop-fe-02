@@ -1,16 +1,15 @@
-import { IPlacard } from '@/modules/placard/domain/model/placard.model'
-
 import { create } from 'zustand'
 import { PlacardRepository } from '../../outbound/repository/placard.repository'
 import { SavePlacardUsecase } from '@/modules/placard/application/usecase/savePlacard.usecase'
 import { usePlacardStore } from './placard.store'
+import { IPlacardForm } from '@/modules/placard/domain/model/placardForm.model'
 
 interface placardFormState {
-    saveForm: (formValue: IPlacard) => Promise<void>
+    saveForm: (formValue: IPlacardForm) => Promise<void>
 }
 
 export const usePlacardFormStore = create<placardFormState>(() => ({
-    saveForm: async (formValue: IPlacard) => {
+    saveForm: async (formValue: IPlacardForm) => {
         try {
             const repo = new PlacardRepository()
             const usecase = new SavePlacardUsecase(repo)
