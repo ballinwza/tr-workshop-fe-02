@@ -12,7 +12,7 @@ import { capitalize } from 'radash'
 import { Textarea } from '@headlessui/react'
 import Image from 'next/image'
 import Button from '../button/Button'
-import { useUserStore } from '@/modules/user/adapter/inbound/store/user.store'
+
 import { IPlacardForm } from '@/modules/placard/domain/model/placardForm.model'
 
 interface Props {
@@ -21,7 +21,6 @@ interface Props {
 }
 const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
     const { saveForm } = usePlacardFormStore((state) => state)
-    const { user } = useUserStore((state) => state)
 
     const [text, SetText] = useState<string>('Choose a community')
     const [contactForm] = useForm()
@@ -75,7 +74,7 @@ const CreateForm: FC<Props> = ({ onSubmit, onCancel }: Props) => {
             <Form.Item<IPlacardForm> name="id" initialValue={null} noStyle />
             <Form.Item<IPlacardForm>
                 name="userId"
-                initialValue={user.id}
+                initialValue={null}
                 noStyle
             />
 
