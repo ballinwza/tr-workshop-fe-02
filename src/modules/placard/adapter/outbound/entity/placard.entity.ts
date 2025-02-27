@@ -3,9 +3,15 @@ import { CommunityEnum } from '@/sections/shared/enums/community.enum'
 
 export interface PlacardEntity {
     id: string
-    userId: IUser
+    user: IUser
     title: string
     description: string
-    commentId: string[]
+    community: CommunityEnum
+}
+
+export interface SavePlacardEntity {
+    userId: string
+    title: string
+    description: string
     community: CommunityEnum
 }
